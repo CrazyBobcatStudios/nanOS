@@ -10,7 +10,7 @@ int settingsBelow = 0;
 const char* settingsOptions[]{
   "About",
   "Display",
-  "Power Off",
+  "Reboot",
   "",
   ""
 };
@@ -38,7 +38,9 @@ void settingsLoop(){
   if (openSetting == 1){
     displayConfLoop();
   }
-
+  if(openSetting == 2){
+    ESP.restart();
+  }
 }
 
 void sLPress(){

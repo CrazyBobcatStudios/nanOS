@@ -40,23 +40,27 @@ extern void boxesLoop();
 extern void blackJackLoop();
 extern void settingsLoop();
 extern void calcLoop();
+extern void deepSleepLoop();
 
 extern void menuLPress();
 extern void boxLPress();
 extern void bjLPress(); 
 extern void sLPress();
 extern void calcLPress();
+extern void deepSleepLPress();
 
 extern void menuMPress();
 extern void boxMPress();
 extern void bjMPress(); 
 extern void sMPress();
 extern void calcMPress();
+extern void deepSleepMPress();
 
 extern void menuRPress();
 extern void boxRPress();
 extern void bjRPress(); 
 extern void sRPress();
 extern void calcRPress();
+extern void deepSleepRPress();
 
 #endif

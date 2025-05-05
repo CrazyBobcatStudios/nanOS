@@ -12,7 +12,7 @@ int ntime = -1;
 bool lastLeftButtonState = HIGH;
 bool lastMiddleButtonState = HIGH;
 bool lastRightButtonState = HIGH;
-
+bool wokeFromDeepSleep = false;
 
 const unsigned long comboWindow = 200;
 
@@ -29,23 +29,32 @@ const unsigned char logo[] PROGMEM = {
 };
 
 void setup() {
+  
   Wire.begin(I2C_SDA, I2C_SCL);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-
+  
+  if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_UNDEFINED) {
+    wokeFromDeepSleep = true;
+  }
+  
   display.setTextColor(COLOR);
   pinMode(LEFT_BUTTON, INPUT_PULLUP);
   pinMode(MIDDLE_BUTTON, INPUT_PULLUP);
   pinMode(RIGHT_BUTTON, INPUT_PULLUP);
   Serial.begin(9600);
   
-  display.clearDisplay();
-  display.drawBitmap(SCREEN_WIDTH/2 - 41, SCREEN_HEIGHT/2 - 6, logo, 82, 12, COLOR);
-  display.display();
-  delay(2000);
-  display.clearDisplay();
+  if (!wokeFromDeepSleep) {
+    display.clearDisplay();
+    display.drawBitmap(SCREEN_WIDTH/2 - 41, SCREEN_HEIGHT/2 - 6, logo, 82, 12, COLOR);
+    display.display();
+    delay(2000);
+    display.clearDisplay();
+  }
+
   delay(50);
 }
 void loop(){
+  Serial.println("not sleeping");
   if (currentApp == -1){
     menuLoop();
   }
