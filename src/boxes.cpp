@@ -69,17 +69,23 @@ void die() {
   display.display();
 }
 
-void boxLPress(){
+void move(){
   if (guy_x == 42) {
     guy_x = 85;
   } else {
     guy_x = 42;
   }
+  }
+
+  void boxLPress(){
+    move();
 }
 void boxMPress(){
+  move();
 }
 
 void boxRPress(){
+  move();
 }
 
 void boxesLoop() {

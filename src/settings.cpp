@@ -2,6 +2,7 @@
 #include <WiFi.h>
 extern void about();
 extern void displayConfLoop();
+extern void flip();
 
 int selectedSetting = 0;
 int openSetting = -1;
@@ -50,7 +51,12 @@ void sLPress(){
 }
 
 void sMPress(){
-  openSetting = selectedSetting;
+  if(openSetting == -1){
+    openSetting = selectedSetting;
+  }
+  if(openSetting == 1){
+    flip();
+  }
 }
 
 void sRPress(){
