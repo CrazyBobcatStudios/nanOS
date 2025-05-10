@@ -11,6 +11,7 @@ int opendCalc;
 const char* opperand = "+";
 int answer = 0;
 int answered = 0;
+int remain;
 
 const char* calcsymbols[] ={
   "7","8","9","/","4","5","6","x","1","2","3","-","c","0","=","+"
@@ -55,6 +56,7 @@ if (selectedCalc == 12){
   calc2 = 0;
   opendCalc = 0;
   answered = 0;
+  remain = 0;
 }
 if(selectedCalc == 14){
   if (opperand == "+"){
@@ -65,6 +67,7 @@ if(selectedCalc == 14){
   }
   if (opperand == "/"){
     answer = calc1 / calc2;
+    remain = calc1 % calc2;
   }
   if (opperand == "x"){
     answer = calc1 * calc2;
@@ -89,8 +92,12 @@ void calcLoop(){
 
   else{
     display.print(answer);
+    if (remain != 0){
+      display.print(" R:");
+      display.print(remain);
+    }
   }
-
+  
   int i = 0;
   while(i<16){
     int row = floor(i/4);

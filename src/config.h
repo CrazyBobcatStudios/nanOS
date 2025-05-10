@@ -6,6 +6,7 @@
 #include <WiFi.h>
 #include <Preferences.h>
 extern Adafruit_SSD1306 display;
+extern Preferences prefs;
 
 //Change this code as needed
 const int LEFT_BUTTON = 20;

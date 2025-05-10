@@ -7,12 +7,12 @@
 #define OLED_RESET -1
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+Preferences prefs;
 
 int ntime = -1;
 bool lastLeftButtonState = HIGH;
 bool lastMiddleButtonState = HIGH;
 bool lastRightButtonState = HIGH;
-bool wokeFromDeepSleep = false;
 
 const unsigned long comboWindow = 200;
 
@@ -30,31 +30,43 @@ const unsigned char logo[] PROGMEM = {
 
 void setup() {
   
+  
   Wire.begin(I2C_SDA, I2C_SCL);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  
-  if (esp_sleep_get_wakeup_cause() != ESP_SLEEP_WAKEUP_UNDEFINED) {
-    wokeFromDeepSleep = true;
-  }
   
   display.setTextColor(COLOR);
   pinMode(LEFT_BUTTON, INPUT_PULLUP);
   pinMode(MIDDLE_BUTTON, INPUT_PULLUP);
   pinMode(RIGHT_BUTTON, INPUT_PULLUP);
   Serial.begin(9600);
-  
-  if (!wokeFromDeepSleep) {
+  prefs.begin("System", true);
+  if(prefs.getBool("firstBoot") == false){
+    prefs.end();
+    prefs.begin("System", false);
+    prefs.putBool("firstBoot", true);
+    prefs.end();
+    display.clearDisplay();
+    display.setCursor(SCREEN_WIDTH/2 - 31, SCREEN_HEIGHT/2 - 15);
+    display.print("Welcome to");
+    display.drawBitmap(SCREEN_WIDTH/2 - 41, SCREEN_HEIGHT/2 - 6, logo, 82, 12, COLOR);
+    display.display();
+    delay(5000);
+    display.clearDisplay();
+  }
+  else{
+    if(prefs.getBool("Flipped") == true){
+      display.setRotation(2);
+      
+    }
+    prefs.end();
     display.clearDisplay();
     display.drawBitmap(SCREEN_WIDTH/2 - 41, SCREEN_HEIGHT/2 - 6, logo, 82, 12, COLOR);
     display.display();
-    delay(2000);
+    delay(500);
     display.clearDisplay();
   }
-
-  delay(50);
 }
 void loop(){
-  Serial.println("not sleeping");
   if (currentApp == -1){
     menuLoop();
   }

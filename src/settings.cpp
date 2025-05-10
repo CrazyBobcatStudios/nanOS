@@ -11,6 +11,7 @@ int settingsBelow = 0;
 const char* settingsOptions[]{
   "About",
   "Display",
+  "Factory Reset",
   "Reboot",
   "",
   ""
@@ -40,6 +41,11 @@ void settingsLoop(){
     displayConfLoop();
   }
   if(openSetting == 2){
+    prefs.begin("System", false);
+    prefs.clear();
+    prefs.end();
+  }
+  if(openSetting == 3){
     ESP.restart();
   }
 }
