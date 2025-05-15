@@ -4,16 +4,17 @@ const char* appNames[] = {
   "Boxes",
   "Blackjack",
   "Calculator",
+  "XP",
   "Sleep",
   "Settings"
 };
 
 const int appCount = sizeof(appNames) / sizeof(appNames[0]);
 
-void (*gameLoops[])() = {boxesLoop, blackJackLoop, calcLoop, deepSleepLoop, settingsLoop};
-void (*LPress[])() = {boxLPress, bjLPress, calcLPress, deepSleepLPress, sLPress};
-void (*MPress[])() = {boxMPress, bjMPress, calcMPress, deepSleepMPress, sMPress};
-void (*RPress[])() = {boxRPress, bjRPress, calcRPress, deepSleepRPress, sRPress};
+void (*gameLoops[])() = {boxesLoop, blackJackLoop, calcLoop, xpLoop, deepSleepLoop, settingsLoop};
+void (*LPress[])() = {boxLPress, bjLPress, calcLPress, xpLPress, deepSleepLPress, sLPress};
+void (*MPress[])() = {boxMPress, bjMPress, calcMPress, xpMPress, deepSleepMPress, sMPress};
+void (*RPress[])() = {boxRPress, bjRPress, calcRPress, xpRPress, deepSleepRPress, sRPress};
 
 char* notification;
 

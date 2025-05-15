@@ -1,4 +1,5 @@
 #include <Wire.h>
+
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include "config.h"
@@ -34,6 +35,7 @@ void bjwin() {
   currentCards = 0;
   otherCards = 0;
   delay(2000);
+  giveXP(5);
 }
 
 void bjLose() {

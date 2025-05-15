@@ -37,31 +37,40 @@ extern void (*MPress[])();
 extern void (*RPress[])();
 
 extern void menuLoop();
-extern void boxesLoop();
-extern void blackJackLoop();
-extern void settingsLoop();
-extern void calcLoop();
-extern void deepSleepLoop();
-
 extern void menuLPress();
-extern void boxLPress();
-extern void bjLPress(); 
-extern void sLPress();
-extern void calcLPress();
-extern void deepSleepLPress();
-
 extern void menuMPress();
-extern void boxMPress();
-extern void bjMPress(); 
-extern void sMPress();
-extern void calcMPress();
-extern void deepSleepMPress();
-
 extern void menuRPress();
+
+extern void boxesLoop();
+extern void boxLPress();
+extern void boxMPress();
 extern void boxRPress();
-extern void bjRPress(); 
+
+extern void blackJackLoop();
+extern void bjLPress();
+extern void bjMPress();
+extern void bjRPress();
+
+extern void settingsLoop();
+extern void sLPress();
+extern void sMPress();
 extern void sRPress();
+
+extern void calcLoop();
+extern void calcLPress();
+extern void calcMPress();
 extern void calcRPress();
+
+extern void deepSleepLoop();
+extern void deepSleepLPress();
+extern void deepSleepMPress();
 extern void deepSleepRPress();
+
+extern void xpLoop();
+extern void xpLPress();
+extern void xpMPress();
+extern void xpRPress();
+
+extern void giveXP(int amount);
 
 #endif

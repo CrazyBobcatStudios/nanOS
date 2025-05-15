@@ -6,6 +6,8 @@
 
 #define OLED_RESET -1
 
+extern void xpInit();
+
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Preferences prefs;
 
@@ -55,8 +57,7 @@ void setup() {
   }
   else{
     if(prefs.getBool("Flipped") == true){
-      display.setRotation(2);
-      
+      display.setRotation(2);     
     }
     prefs.end();
     display.clearDisplay();
@@ -65,6 +66,7 @@ void setup() {
     delay(500);
     display.clearDisplay();
   }
+  xpInit();
 }
 void loop(){
   if (currentApp == -1){

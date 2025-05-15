@@ -53,20 +53,39 @@ const unsigned char guy[] PROGMEM = {
 };
 
 void die() {
-  display.clearDisplay();
-  display.setCursor(20, 30);
-  display.setTextSize(2);
-  display.println("Game Over");
-  display.setTextSize(1);
+  prefs.begin("data", true);
+  if(score > prefs.getInt("boxHS")){
+    display.clearDisplay();
+    prefs.end();
+    display.setCursor(10, 30);
+    display.println("New High Score!");
+    display.setCursor(5, 5);
+    display.print("Score: ");
+    display.print(score);
+    prefs.begin("data", false);
+    prefs.putInt("boxHS", score);
+    prefs.end();
+    display.display();
+  }
+  else{
+    prefs.end();
+    display.clearDisplay();
+    display.setCursor(20, 30);
+    display.setTextSize(2);
+    display.println("Game Over");
+    display.setTextSize(1);
+    display.setCursor(5, 5);
+    display.print("Score: ");
+    display.print(score);
+    display.display();
+  }
+
+  giveXP(score);
   box_on_screen = 0;
   box_x = 0;
   box_y = 0;
   guy_x = 42;
   score = 0;
-  display.setCursor(5, 5);
-  display.print("Score: ");
-  display.print(score);
-  display.display();
 }
 
 void move(){
@@ -89,7 +108,6 @@ void boxRPress(){
 }
 
 void boxesLoop() {
-
   display.drawBitmap(guy_x, 48, guy, 8, 16, COLOR);
   if (box_on_screen == 1) {
     box_y += floor(score / 5) + 1;
