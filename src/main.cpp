@@ -12,6 +12,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Preferences prefs;
 
 int ntime = -1;
+int order[appCount];
 bool lastLeftButtonState = HIGH;
 bool lastMiddleButtonState = HIGH;
 bool lastRightButtonState = HIGH;
@@ -46,6 +47,7 @@ void setup() {
     prefs.end();
     prefs.begin("System", false);
     prefs.putBool("firstBoot", true);
+    prefs.putBool("Airplane", true);
     prefs.end();
     display.clearDisplay();
     display.setCursor(SCREEN_WIDTH/2 - 31, SCREEN_HEIGHT/2 - 15);
@@ -63,10 +65,24 @@ void setup() {
     display.clearDisplay();
     display.drawBitmap(SCREEN_WIDTH/2 - 41, SCREEN_HEIGHT/2 - 6, logo, 82, 12, COLOR);
     display.display();
+    xpInit();
+    prefs.begin("System", true);
+    if(prefs.getBool("Airplane") == false){
+      WiFi.begin(wifissid, wifipassword);
+    }
+    prefs.end();
     delay(500);
     display.clearDisplay();
   }
-  xpInit();
+    prefs.begin("app-order", true);
+    for (int i = 0; i < appCount; i++) {
+      if (prefs.isKey(String(i).c_str())) {
+        order[i] = prefs.getInt(String(i).c_str());
+      } else {
+        order[i] = i;
+      }
+    }
+    prefs.end();
 }
 void loop(){
   if (currentApp == -1){

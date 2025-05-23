@@ -11,6 +11,7 @@ int settingsBelow = 0;
 const char* settingsOptions[]{
   "About",
   "Display",
+  "Airplane Mode",
   "Factory Reset",
   "Reboot",
   "",
@@ -41,11 +42,20 @@ void settingsLoop(){
     displayConfLoop();
   }
   if(openSetting == 2){
+    prefs.begin("System");
+    if(prefs.getBool("Airplane") == false){
+      prefs.putBool("Airplane", true);
+    }
+    else{
+      prefs.putBool("Airplane", false);
+    }
+  }
+  if(openSetting == 3){
     prefs.begin("System", false);
     prefs.clear();
     prefs.end();
   }
-  if(openSetting == 3){
+  if(openSetting == 4){
     ESP.restart();
   }
 }
