@@ -15,6 +15,9 @@ const int RIGHT_BUTTON = 9;
 const int I2C_SDA = 6;
 const int I2C_SCL = 7;
 
+extern const char* wifissid;
+extern const char* wifipassword;
+
 //change to suit your screen
 const int SCREEN_WIDTH = 128;
 const int SCREEN_HEIGHT = 64;
@@ -26,7 +29,7 @@ const uint16_t SECONDARY = WHITE;
 
 //Shared variables
 
-extern char* notification;
+extern const char* notification;
 
 extern int currentApp;
 extern const char* appNames[];
@@ -70,6 +73,11 @@ extern void xpLoop();
 extern void xpLPress();
 extern void xpMPress();
 extern void xpRPress();
+
+extern void personalizationLoop();
+extern void personalizationLPress();
+extern void personalizationMPress();
+extern void personalizationRPress();
 
 extern void giveXP(int amount);
 

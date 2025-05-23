@@ -4,6 +4,7 @@ int xp;
 int level;
 int progress;
 int barWidth;
+int lastlevel;
 
 void xpInit() {
   prefs.begin("System", true);
@@ -18,6 +19,7 @@ void xpInit() {
   }
 
   level = xp / 1000;
+  lastlevel = level;
   progress = xp % 1000;
   barWidth = (SCREEN_WIDTH - 20) * progress / 1000;
 }
@@ -45,6 +47,10 @@ void giveXP(int amount){
   prefs.putInt("XP", xp);
   prefs.end();
   level = xp / 1000;
+  if(level > lastlevel){
+    notification = "Level Up!";
+  }
+  lastlevel = level;
   progress = xp % 1000;
   barWidth = (SCREEN_WIDTH - 20) * progress / 1000;
 }
@@ -53,6 +59,7 @@ void xpLPress(){
 }
 
 void xpMPress(){
+
 }
 
 void xpRPress(){

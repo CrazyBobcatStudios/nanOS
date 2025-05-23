@@ -46,6 +46,7 @@ void setup() {
     prefs.end();
     prefs.begin("System", false);
     prefs.putBool("firstBoot", true);
+    prefs.putBool("Airplane", true);
     prefs.end();
     display.clearDisplay();
     display.setCursor(SCREEN_WIDTH/2 - 31, SCREEN_HEIGHT/2 - 15);
@@ -63,10 +64,14 @@ void setup() {
     display.clearDisplay();
     display.drawBitmap(SCREEN_WIDTH/2 - 41, SCREEN_HEIGHT/2 - 6, logo, 82, 12, COLOR);
     display.display();
+    xpInit();
+    prefs.begin("System", true);
+    if(prefs.getBool("Airplane") == false){
+      WiFi.begin(wifissid, wifipassword);
+    }
     delay(500);
     display.clearDisplay();
   }
-  xpInit();
 }
 void loop(){
   if (currentApp == -1){
