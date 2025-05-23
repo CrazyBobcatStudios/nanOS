@@ -7,6 +7,7 @@ int selectedItem = 0;
 
 extern Adafruit_SSD1306 display;
 
+
 const unsigned char box[] PROGMEM ={
   0xff,0xff,0xff,0xff,
   0xff,0xff,0xff,0xff,
@@ -113,19 +114,9 @@ const unsigned char* icons[] PROGMEM ={
   spade,
   calc,
   xp,
-  brush, //TODO add a personalization app
+  brush,
   zzz,
   cog
-};
-
-int order[] ={
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6
 };
 
 void menuLPress(){
@@ -147,3 +138,4 @@ void menuLoop(){
   display.setCursor(40, 56);
   display.print(appNames[order[selectedItem]]);
 }
+

@@ -1,16 +1,6 @@
 #include "config.h"
 
-const char* appNames[] = {
-  "Boxes",
-  "Blackjack",
-  "Calculator",
-  "XP",
-  "Customization",
-  "Sleep",
-  "Settings"
-};
 
-const int appCount = sizeof(appNames) / sizeof(appNames[0]);
 
 void (*gameLoops[])() = {boxesLoop, blackJackLoop, calcLoop, xpLoop, personalizationLoop, deepSleepLoop, settingsLoop};
 void (*LPress[])() = {boxLPress, bjLPress, calcLPress, xpLPress, personalizationLPress,deepSleepLPress, sLPress};

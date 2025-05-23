@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CONFIG_H
 #define CONFIG_H
 #include <Arduino.h>
@@ -22,18 +23,31 @@ extern const char* wifipassword;
 const int SCREEN_WIDTH = 128;
 const int SCREEN_HEIGHT = 64;
 
-//change both if your display is single colored
+//primary color
 const uint16_t COLOR = WHITE;
-//used on multicolor displays
+//secondary color used on multicolor displays
 const uint16_t SECONDARY = WHITE;
 
 //Shared variables
 
 extern const char* notification;
 
+constexpr const char* appNames[] = {
+  "Boxes",
+  "Blackjack",
+  "Calculator",
+  "XP",
+  "Customization",
+  "Sleep",
+  "Settings"
+};
+
+constexpr int appCount = sizeof(appNames) / sizeof(appNames[0]);
+
+extern int order[];
+
 extern int currentApp;
-extern const char* appNames[];
-extern const int appCount;
+
 extern void (*gameLoops[])();
 extern void (*LPress[])();
 extern void (*MPress[])();
