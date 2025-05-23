@@ -11,14 +11,20 @@ void personalizationLoop(){
   display.setTextColor(BLACK);
   display.print(appNames[order[selectedMenuItem]]);
   display.setCursor(12, 27);
-  display.setTextColor(COLOR);
-  display.print(appNames[order[selectedMenuItem + 1]]);
-  display.setCursor(12, 46);
-  display.print(appNames[order[selectedMenuItem + 2]]);
+  if(selectedMenuItem + 1 < appCount){
+    display.setTextColor(COLOR);
+    display.print(appNames[order[selectedMenuItem + 1]]);
+  }
+  if(selectedMenuItem + 2 < appCount){
+    display.setCursor(12, 46);
+    display.print(appNames[order[selectedMenuItem + 2]]);
+  }
 }
 
 void personalizationLPress(){
-  selectedMenuItem--;
+  if(selectedMenuItem > 0){
+    selectedMenuItem--;
+  }
 }
 
 void personalizationMPress(){
@@ -26,5 +32,7 @@ void personalizationMPress(){
 }
 
 void personalizationRPress(){
-  selectedMenuItem++;
+  if(selectedMenuItem < appCount - 1){
+    selectedMenuItem++;
+  }
 }

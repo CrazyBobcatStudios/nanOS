@@ -6,7 +6,6 @@ const char* appNames[] = {
   "Calculator",
   "XP",
   "Customization",
-
   "Sleep",
   "Settings"
 };
