@@ -3,6 +3,9 @@
 extern void about();
 extern void displayConfLoop();
 extern void flip();
+extern void rwLoop();
+extern void rwLPress();
+extern void rwMPress();
 
 int selectedSetting = 0;
 int openSetting = -1;
@@ -11,7 +14,6 @@ int settingsBelow = 0;
 const char* settingsOptions[]{
   "About",
   "Display",
-  "Airplane Mode",
   "Factory Reset",
   "Reboot",
   "",
@@ -42,20 +44,9 @@ void settingsLoop(){
     displayConfLoop();
   }
   if(openSetting == 2){
-    prefs.begin("System");
-    if(prefs.getBool("Airplane") == false){
-      prefs.putBool("Airplane", true);
-    }
-    else{
-      prefs.putBool("Airplane", false);
-    }
+    rwLoop();
   }
   if(openSetting == 3){
-    prefs.begin("System", false);
-    prefs.clear();
-    prefs.end();
-  }
-  if(openSetting == 4){
     ESP.restart();
   }
 }
@@ -64,9 +55,15 @@ void sLPress(){
   if (selectedSetting != 0){
     selectedSetting--;
   }
+    if(openSetting == 2){
+    rwLPress();
+  }
 }
 
 void sMPress(){
+  if(openSetting == 2){
+    rwMPress();
+  }
   if(openSetting == -1){
     openSetting = selectedSetting;
   }
@@ -78,5 +75,8 @@ void sMPress(){
 void sRPress(){
   if (selectedSetting != settingsCount - 3){
     selectedSetting++;
+  }
+  if(openSetting == 2){
+    rwLPress();
   }
 }

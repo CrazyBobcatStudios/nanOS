@@ -8,6 +8,7 @@
 
 extern void xpInit();
 
+
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Preferences prefs;
 
@@ -32,8 +33,6 @@ const unsigned char logo[] PROGMEM = {
 };
 
 void setup() {
-  
-  
   Wire.begin(I2C_SDA, I2C_SCL);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   
@@ -44,6 +43,8 @@ void setup() {
   Serial.begin(9600);
   prefs.begin("System", true);
   if(prefs.getBool("firstBoot") == false){
+    display.print("Welcome to");
+    display.drawBitmap(SCREEN_WIDTH/2 - 41, SCREEN_HEIGHT/2 - 6, logo, 82, 12, COLOR);
     prefs.end();
     prefs.begin("System", false);
     prefs.putBool("firstBoot", true);
@@ -51,8 +52,6 @@ void setup() {
     prefs.end();
     display.clearDisplay();
     display.setCursor(SCREEN_WIDTH/2 - 31, SCREEN_HEIGHT/2 - 15);
-    display.print("Welcome to");
-    display.drawBitmap(SCREEN_WIDTH/2 - 41, SCREEN_HEIGHT/2 - 6, logo, 82, 12, COLOR);
     display.display();
     delay(5000);
     display.clearDisplay();
@@ -66,11 +65,6 @@ void setup() {
     display.drawBitmap(SCREEN_WIDTH/2 - 41, SCREEN_HEIGHT/2 - 6, logo, 82, 12, COLOR);
     display.display();
     xpInit();
-    prefs.begin("System", true);
-    if(prefs.getBool("Airplane") == false){
-      WiFi.begin(wifissid, wifipassword);
-    }
-    prefs.end();
     delay(500);
     display.clearDisplay();
   }
@@ -83,7 +77,8 @@ void setup() {
       }
     }
     prefs.end();
-}
+
+  }
 void loop(){
   if (currentApp == -1){
     menuLoop();
