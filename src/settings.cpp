@@ -1,19 +1,30 @@
 #include "config.h"
 #include <WiFi.h>
-extern void about();
 extern void displayConfLoop();
 extern void flip();
+
+extern void about();
+extern void aLPress();
+extern void aMPress();
+extern void aRPress();
+
+
 extern void rwLoop();
 extern void rwLPress();
 extern void rwMPress();
 
+extern void ppTestLoop();
+extern void ppTestLPress();
+extern void ppTestMPress();
+extern void ppTestRPress();
+
 int selectedSetting = 0;
 int openSetting = -1;
-int settingsBelow = 0;
 
 const char* settingsOptions[]{
   "About",
   "Display",
+  "ProxyPlay",
   "Factory Reset",
   "Reboot",
   "",
@@ -44,39 +55,65 @@ void settingsLoop(){
     displayConfLoop();
   }
   if(openSetting == 2){
-    rwLoop();
+    ppTestLoop();
   }
   if(openSetting == 3){
+    rwLoop();
+  }
+  if(openSetting == 4){
     ESP.restart();
   }
 }
 
 void sLPress(){
-  if (selectedSetting != 0){
+  if (openSetting == -1 && selectedSetting != 0){
     selectedSetting--;
   }
-    if(openSetting == 2){
+
+  if(openSetting == 0){
+    aLPress();
+  }
+
+  if(openSetting == 2){
+    ppTestLPress();
+  }
+
+  if(openSetting == 3){
     rwLPress();
   }
 }
 
 void sMPress(){
-  if(openSetting == 2){
-    rwMPress();
-  }
   if(openSetting == -1){
     openSetting = selectedSetting;
   }
-  if(openSetting == 1){
-    flip();
+  else{
+    if(openSetting == 0){
+      aMPress();
+    }
+    if(openSetting == 2){
+      ppTestMPress();
+    }
+    if(openSetting == 3){
+      rwMPress();
+    }
+    if(openSetting == 1){
+      flip();
+    }
   }
 }
 
 void sRPress(){
-  if (selectedSetting != settingsCount - 3){
+  if (openSetting == -1 && selectedSetting < settingsCount - 3){
     selectedSetting++;
   }
-  if(openSetting == 2){
+  if(openSetting == 0){
+    aRPress();
+  }
+  if(openSetting == 3){
     rwLPress();
+  }
+  if(openSetting == 2){
+    ppTestRPress();
   }
 }

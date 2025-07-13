@@ -6,6 +6,8 @@
 #include <Adafruit_SSD1306.h>
 #include <WiFi.h>
 #include <Preferences.h>
+#include <esp_now.h>
+
 extern Adafruit_SSD1306 display;
 extern Preferences prefs;
 
@@ -35,6 +37,7 @@ extern const char* notification;
 constexpr const char* appNames[] = {
   "Boxes",
   "Blackjack",
+  "Snek",
   "Calculator",
   "XP",
   "Customization",
@@ -67,6 +70,11 @@ extern void blackJackLoop();
 extern void bjLPress();
 extern void bjMPress();
 extern void bjRPress();
+
+extern void snekLoop();
+extern void SnekLPress();
+extern void SnekMPress();
+extern void SnekRPress();
 
 extern void settingsLoop();
 extern void sLPress();

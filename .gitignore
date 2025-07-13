@@ -1,3 +1,4 @@
 /.vscode
-/.pio
-/.vscode/extensions.json
+nanOS.code-workspace
+.gitignore
+.pio
