@@ -17,6 +17,8 @@ extern void ppTestLoop();
 extern void ppTestLPress();
 extern void ppTestMPress();
 extern void ppTestRPress();
+extern void ppOpen();
+extern void onReceiveData();
 
 int selectedSetting = 0;
 int openSetting = -1;
@@ -85,6 +87,9 @@ void sLPress(){
 
 void sMPress(){
   if(openSetting == -1){
+    if (selectedSetting == 2){
+      ppOpen();
+    }
     openSetting = selectedSetting;
   }
   else{
